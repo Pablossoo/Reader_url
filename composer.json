@@ -1,0 +1,15 @@
+{
+    "name": "csk/vendor",
+    "authors": [
+        {
+            "name": "Paweł",
+            "email": "pablos.lukowski@wp.pl"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "CSK//" :"src/"
+        }
+    },
+    "require": {}
+}
