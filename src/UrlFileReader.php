@@ -2,8 +2,19 @@
 
 namespace CSK\Recrutation;
 
+use CSK\Recrutation\Factory\UrlCreator;
+
 final class UrlFileReader implements UrlReader
 {
+
+    /** @var UrlCreator */
+    private $factoryUrl;
+
+    public function __construct(UrlCreator $factoryUrl)
+    {
+        $this->factoryUrl = $factoryUrl;
+    }
+
     /**
      * Reads a urls collection
      *
@@ -12,29 +23,22 @@ final class UrlFileReader implements UrlReader
     public function read(): array
     {
         $dataFromFile = file('../_data_/urls.txt');
-        $out = null;
-        $regex = "@(https?|ftp)\:\/\/?([a-z0-9-.]*\.[a-z]{2,3})([^\?]+)?(\?.*)?@";
+        $out = [];
+        $regex = "@(?<protocol>https?|ftp)\:\/\/?(?<domain>[a-z0-9-.]*\.[a-z]{2,3})(?<path>[^\?]+)?(?<queryString>\?.*)?@";
         $urls = [];
         foreach ($dataFromFile as $string) {
-            $tmp=[];
             preg_match($regex, $string, $out);
-            // [4] index = query string
-            if (isset($out[4])) {
-                $tmpArray = explode('&', $out[4]);
-                $tmp = [];
+            if (isset($out['queryString'])) {
+                $tmpArray = explode('&', $out['queryString']);
+                $out['queryString'] = [];
                 foreach ($tmpArray as $item) {
-
+                    // split each query string into [key] => value
                     parse_str($item, $tmp2);
-                    $tmp[] = $tmp2;
+                    $out['queryString'] = $tmp2;
                 }
-            }
-
-            $urls[] = new Url(
-                $out[1], // protocol
-                $out[2], //domain
-                $out[3], // path
-                $tmp // query string as array, can be empty
-            );
+            }else
+                $out['queryString'] = [];
+           $urls[] = $this->factoryUrl->Create($out);
         }
         return $urls;
     }
