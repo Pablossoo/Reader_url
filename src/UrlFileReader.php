@@ -23,7 +23,6 @@ final class UrlFileReader implements UrlReader
     public function read(): array
     {
         $dataFromFile = file('../_data_/urls.txt');
-        $out = [];
         $regex = "@(?<protocol>https?|ftp)\:\/\/?(?<domain>[a-z0-9-.]*\.[a-z]{2,3})(?<path>[^\?]+)?(?<queryString>\?.*)?@";
         $urls = [];
         foreach ($dataFromFile as $string) {
@@ -36,8 +35,10 @@ final class UrlFileReader implements UrlReader
                     parse_str($item, $tmp2);
                     $out['queryString'] = $tmp2;
                 }
-            }else
+            }else {
                 $out['queryString'] = [];
+            }
+
            $urls[] = $this->factoryUrl->Create($out);
         }
         return $urls;
