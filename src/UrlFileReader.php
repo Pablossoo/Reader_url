@@ -33,7 +33,7 @@ final class UrlFileReader implements UrlReader
                 foreach ($tmpArray as $item) {
                     // split each query string into [key] => value
                     parse_str($item, $tmp2);
-                    $out['queryString'] = $tmp2;
+                    $out['queryString'][] = $tmp2;
                 }
             }else {
                 $out['queryString'] = [];
@@ -41,6 +41,7 @@ final class UrlFileReader implements UrlReader
 
            $urls[] = $this->factoryUrl->Create($out);
         }
+
         return $urls;
     }
 }
