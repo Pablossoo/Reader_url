@@ -30,10 +30,10 @@ final class UrlFileReader implements UrlReader
             if (isset($out['queryString'])) {
                 $tmpArray = explode('&', $out['queryString']);
                 $out['queryString'] = [];
-                foreach ($tmpArray as $item) {
+                foreach ($tmpArray as $key => $item) {
                     // split each query string into [key] => value
                     parse_str($item, $tmp2);
-                    $out['queryString'][] = $tmp2;
+                    $out['queryString'][key($tmp2)] = $tmp2[key($tmp2)];
                 }
             }else {
                 $out['queryString'] = [];

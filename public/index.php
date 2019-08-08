@@ -6,7 +6,11 @@ require_once '../vendor/autoload.php';
 $fileReader = new \CSK\Recrutation\UrlFileReader(new \CSK\Recrutation\Factory\UrlCreator());
 $collectionUrlObject = $fileReader->read();
 
-//print_r($collectionUrlObject);
+print_r($collectionUrlObject);
+
+
+//print_r($arr);
+
 $filteredUniqueDomain = (new \CSK\Recrutation\HelperUrl\FilterUrl($collectionUrlObject))->uniqueCollectionDomain();
 ?>
 
