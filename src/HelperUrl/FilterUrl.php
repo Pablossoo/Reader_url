@@ -9,7 +9,6 @@ final class FilterUrl
     /** @var Url[] */
     private $url;
 
-
     public function __construct(array $url)
     {
         $this->url = $url;
