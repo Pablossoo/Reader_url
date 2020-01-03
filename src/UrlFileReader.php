@@ -6,7 +6,6 @@ use CSK\Recrutation\Factory\UrlCreator;
 
 final class UrlFileReader implements UrlReader
 {
-
     /** @var UrlCreator */
     private $factoryUrl;
 
