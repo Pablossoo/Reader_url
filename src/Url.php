@@ -1,8 +1,6 @@
 <?php
 
-
 namespace CSK\Recrutation;
-
 
 final class Url
 {
@@ -18,7 +16,6 @@ final class Url
     /** @var array */
     private $params = [];
 
-
     public function __construct(string $protocol, string $domain, string $path, array $params = [])
     {
         $this->protocol = $protocol;
@@ -26,10 +23,9 @@ final class Url
         $this->path = $path;
         $this->params = $params;
     }
-
+    
     public function getDomain(): string
     {
         return $this->domain;
     }
-
 }
